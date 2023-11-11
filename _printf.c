@@ -8,8 +8,8 @@
   */
 int _printf(const char *format, ...)
 {
-	unsigned int i;
-	unsigned int num_args;
+	int i;
+	int num_args;
 	char character;
 	char *character_string;
 	va_list extras;
@@ -22,7 +22,7 @@ int _printf(const char *format, ...)
 
 	for (i = 0; i < num_args; i++)
 	{
-		switch (*format++)
+		switch (format[i])
 		{
 			case '%':
 				if (format[i + 1] == 'c')
@@ -36,6 +36,13 @@ int _printf(const char *format, ...)
 					character_string = va_arg(extras, char *);
 					printf("%s", character_string);
 				}
+				break;
+			default:
+				character_string = va_arg(extras, char *);
+				printf("%s", character_string);
+				if (format[i] == '\0')
+					printf("\n");
+				break;
 		}
 	}
 
