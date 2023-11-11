@@ -1,4 +1,5 @@
 #include "main.h"
+#include "for_loop.c"
 
 /**
   * _printf - produces output according to a format
@@ -22,42 +23,8 @@ int _printf(const char *format, ...)
 		return (0);
 
 	va_start(extras, format);
-
-	for (int i = 0; format[i] != '\0'; i++)
-    {
-        switch (format[i])
-        {
-            case '%':
-                i++; // Move to the next character after '%'
-                switch (format[i])
-                {
-                    case 'c':
-                        {
-                            int character = va_arg(extras, int);
-                            printf("%c", character);
-                            break;
-                        }
-                    case 's':
-                        {
-                            char *character_string = va_arg(extras, char *);
-                            if (character_string != NULL)
-                                printf("%s", character_string);
-                            else
-                                printf("(null)"); 
-                            break;
-                        }
-                    default:
-                        printf("%%");
-                        break;
-                }
-                break;
-            default:
-                printf("%c", format[i]);
-                break;
-        }
-    }
-
-    va_end(extras);
+	#define FOR_LOOP
+	va_end(extras);
 
 	return (num_args);
 }
