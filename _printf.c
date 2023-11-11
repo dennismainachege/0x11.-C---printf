@@ -14,39 +14,50 @@ int _printf(const char *format, ...)
 	char *character_string;
 	va_list extras;
 
+	if (format == NULL)
+		return (0);
+
 	num_args = strlen(format);
 	if (num_args < 1)
-		exit(98);
+		return (0);
 
 	va_start(extras, format);
 
-	for (i = 0; i < num_args; i++)
-	{
-		switch (format[i])
-		{
-			case '%':
-				if (format[i + 1] == 'c')
-				{
-					character = va_arg(extras, int);
-					printf("%c", character);
-				}
+	for (int i = 0; format[i] != '\0'; i++)
+    {
+        switch (format[i])
+        {
+            case '%':
+                i++; // Move to the next character after '%'
+                switch (format[i])
+                {
+                    case 'c':
+                        {
+                            int character = va_arg(extras, int);
+                            printf("%c", character);
+                            break;
+                        }
+                    case 's':
+                        {
+                            char *character_string = va_arg(extras, char *);
+                            if (character_string != NULL)
+                                printf("%s", character_string);
+                            else
+                                printf("(null)"); 
+                            break;
+                        }
+                    default:
+                        printf("%%");
+                        break;
+                }
+                break;
+            default:
+                printf("%c", format[i]);
+                break;
+        }
+    }
 
-				if (format[i + 1] == 's')
-				{
-					character_string = va_arg(extras, char *);
-					printf("%s", character_string);
-				}
-				break;
-			default:
-				character_string = va_arg(extras, char *);
-				printf("%s", character_string);
-				if (format[i] == '\0')
-					printf("\n");
-				break;
-		}
-	}
-
-	va_end(extras);
+    va_end(extras);
 
 	return (num_args);
 }
