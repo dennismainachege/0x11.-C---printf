@@ -5,5 +5,5 @@
 #include <stdio.h>
 #include <stdlib.h>
 int _printf(const char *format, ...);
-void conversion_handler(const char *format, va_list extras);
+int conversion_handler(const char *format, va_list extras);
 #endif
