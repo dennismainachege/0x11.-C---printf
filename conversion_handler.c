@@ -1,5 +1,3 @@
-#ifndef CONVERSION_HANDLER
-#define CONVERSION_HANDLER
 #include "main.h"
 
 void conversion_handler(const char *format, va_list extras)
@@ -45,4 +43,3 @@ void conversion_handler(const char *format, va_list extras)
 		}
 	}
 }
-#endif /* #ifndef CONVERSION_HANDLER*/
