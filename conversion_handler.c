@@ -3,6 +3,7 @@
 void conversion_handler(const char *format, va_list extras)
 {
     int i;
+    
     for (i = 0; format[i] != '\0'; i++)
 	{
 		switch (format[i])
