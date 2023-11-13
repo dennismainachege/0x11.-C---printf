@@ -9,6 +9,7 @@
 int _printf(const char *format, ...)
 {
 	int num_args;
+	int num_of_characters_printed;
 	va_list extras;
 
 	if (format == NULL)
@@ -19,16 +20,17 @@ int _printf(const char *format, ...)
 		return (0);
 
 	va_start(extras, format);
-    conversion_handler(format, extras);
+    num_of_characters_printed = conversion_handler(format, extras);
 	va_end(extras);
 
-	return (num_args);
+	return (num_of_characters_printed);
 }
 
-void conversion_handler(const char *format, va_list extras)
+int conversion_handler(const char *format, va_list extras)
 {
     int i;
-    
+	int count = 0;
+
     for (i = 0; format[i] != '\0'; i++)
 	{
 		switch (format[i])
@@ -42,6 +44,61 @@ void conversion_handler(const char *format, va_list extras)
 						int character = va_arg(extras, int);
 
 						printf("%c", character);
+						break;
+					}
+					case 'i':
+					{
+						int num_i = va_arg(extras, int);
+
+						printf("%i", num_i);
+						break;
+					}
+					case 'd':
+					{
+						int num_d = va_arg(extras, int);
+
+						printf("%d", num_d);
+						break;
+					}
+					case 'u':
+					{
+						unsigned int num_u = va_arg(extras, int);
+
+						printf("%u", num_u);
+						break;
+					}
+					case 'o':
+					{
+						unsigned int num_o = va_arg(extras, int);
+
+						printf("%o", num_o);
+						break;
+					}
+					case 'x':
+					{
+						unsigned int num_x = va_arg(extras, int);
+
+						printf("%x", num_x);
+						break;
+					}
+					case 'X':
+					{
+						unsigned int num_X = va_arg(extras, int);
+
+						printf("%X", num_X);
+						break;
+					}
+					case 'p':
+					{
+						void *addr = va_arg(extras, void *);
+
+						printf("%p", addr);
+						break;
+					}
+					case '%':
+					{
+						count++;
+						putchar('%');
 						break;
 					}
 					case 's':
@@ -59,13 +116,18 @@ void conversion_handler(const char *format, va_list extras)
 						break;
 					}
 					default:
-						printf("%%");
+					{
+						putchar('%');
+						printf("%c", format[i]);
 						break;
+					}
 				}
 				break;
 			default:
-				printf("%c", format[i]);
+				putchar(format[i]);
+				count++;
 				break;
 		}
 	}
+	return (count);
 }
