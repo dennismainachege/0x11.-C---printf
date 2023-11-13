@@ -8,7 +8,6 @@
   */
 int _printf(const char *format, ...)
 {
-	int i;
 	int num_args;
 	va_list extras;
 
