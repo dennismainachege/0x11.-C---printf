@@ -20,7 +20,8 @@ int _printf(const char *format, ...)
 		return (0);
 
 	va_start(extras, format);
-    num_of_characters_printed = conversion_handler(format, extras);
+
+	num_of_characters_printed = conversion_handler(format, extras);
 	va_end(extras);
 
 	return (num_of_characters_printed);
@@ -28,10 +29,11 @@ int _printf(const char *format, ...)
 
 int conversion_handler(const char *format, va_list extras)
 {
-    int i;
+	int i;
+
 	int count = 0;
 
-    for (i = 0; format[i] != '\0'; i++)
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		switch (format[i])
 		{
